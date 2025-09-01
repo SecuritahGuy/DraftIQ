@@ -1,3 +1,1 @@
-"""
-Test files.
-"""
+# Test package

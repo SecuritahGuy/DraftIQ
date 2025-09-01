@@ -4,7 +4,7 @@ Yahoo OAuth service for handling authentication flow.
 
 import secrets
 import httpx
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, Any, Optional
 from urllib.parse import urlencode
 from app.core.config import settings
@@ -104,8 +104,13 @@ class YahooOAuthService:
         Returns:
             Parsed token data with calculated expiration
         """
+        # Check for error response
+        if "error" in token_data:
+            error_msg = token_data.get("error_description", token_data["error"])
+            raise Exception(f"OAuth error: {error_msg}")
+        
         expires_in = token_data.get("expires_in", 3600)  # Default to 1 hour
-        expires_at = datetime.utcnow() + timedelta(seconds=expires_in)
+        expires_at = datetime.now(timezone.utc) + timedelta(seconds=expires_in)
         
         return {
             "access_token": token_data["access_token"],

@@ -53,10 +53,14 @@ async def health_check():
     return {"status": "healthy"}
 
 
+# Import all models to ensure they're registered with SQLAlchemy
+from app.models import user, fantasy, nfl_data
+
 # Include API routers
-from app.api.v1 import auth, yahoo
+from app.api.v1 import auth, yahoo, data_sync
 app.include_router(auth.router, prefix=settings.api_v1_prefix)
 app.include_router(yahoo.router, prefix=settings.api_v1_prefix)
+app.include_router(data_sync.router, prefix=settings.api_v1_prefix)
 
 
 if __name__ == "__main__":

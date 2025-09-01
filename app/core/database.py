@@ -7,6 +7,8 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from sqlalchemy.orm import DeclarativeBase
 from app.core.config import settings
 
+# Models will be imported in main.py to avoid circular imports
+
 
 class Base(DeclarativeBase):
     """Base class for all database models."""

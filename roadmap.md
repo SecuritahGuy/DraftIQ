@@ -1,8 +1,8 @@
 # DraftIQ - Fantasy Football Analytics Platform
 ## Progress Summary
 
-**Current Status**: Phase 1 Complete ✅  
-**Next Up**: Phase 2 (Data model - SQLite first)
+**Current Status**: Phase 2 Complete ✅  
+**Next Up**: Phase 3 (Scoring engine & projections)
 
 ---
 
@@ -40,6 +40,10 @@ Below is a pragmatic, step-by-step roadmap optimized for a **local FastAPI backe
 * **Yahoo integration:** `yahoo-fantasy-api` (Python) gives you League/Team/Player/Draft abstractions on top of Yahoo OAuth. It’s active and documented. ([PyPI][16], [yahoo-fantasy-api.readthedocs.io][14])
 * **On-field data:** `nfl_data_py` provides weekly/seasonal stats, play-by-play, **depth charts, injuries, snap counts, NGS**, schedules, and a **player IDs mapping** across major platforms (critical for joining Yahoo player\_ids to public data). ([GitHub][17])
 * **Why not scrape projections?** Public projections are a licensing thicket; we’ll **compute projections** from nflverse stats, depth charts, usage, and Vegas lines (nfl\_data\_py has the pieces), plus allow **CSV import** for any proprietary projections you have rights to use. ([GitHub][17])
+
+* **Frontend (React) stack:** React 18 + **TypeScript** + **Vite** (fast local dev), **React Router** for routing, **TanStack Query** for server cache & revalidation, **Zustand** for light client state (UI prefs, wizards), **Tailwind CSS** (utility-first) with **Radix UI** primitives for accessibility, **TanStack Table** for large sortable/filterable tables, **Recharts** for responsive charts/sparklines, **React Hook Form** + **Zod** for forms & validation, **date-fns** for time handling, **Lucide** icons, and **sonner** for toasts.
+  * **Why this combo:** Query handles async/caching/invalidations; Zustand is minimal and local-only; Tailwind + Radix gives speed + a11y; Table/Charts are battle-tested and tree-shake well.
+  * **Build output:** Static assets served by FastAPI (CORS enabled in dev), optional Nginx later for prod.
 
 ## Phase 1 — Scaffold & Auth (Yahoo read access)
 
@@ -94,6 +98,131 @@ Use `nfl_data_py.import_ids()` to populate cross-walks between Yahoo and GSIS/PF
    * **QB/RB/WR/TE models:** regress last N games with opponent defensive splits; nudge by Vegas totals (available as “scoring lines/win totals” in nfl\_data\_py). ([GitHub][17])
    * Store into `weekly_projections`.
 4. **Import projections via CSV** (optional) to override/ensemble.
+
+## Phase 3.5 — React Web UI (Detailed)
+
+**Goal:** A fast, local-first UI that overlays actionable insights on Yahoo or runs as a standalone dashboard. Ship core pages first (Connect → Dashboard → Weekly Lineup) and expand to Waivers/Trades.
+
+### App architecture
+* **Routing:** React Router with file-style routes.
+* **Data fetching:** TanStack Query (staleTime tuned per endpoint; background refetch; retry/backoff sensible defaults).
+* **Client state:** Zustand for ephemeral UI and cross-route prefs (theme, league/team selection, table filters).
+* **Styling:** Tailwind CSS + Radix UI primitives (Dialog, Popover, Select, Tabs) for accessibility.
+* **Charts/Tables:** Recharts (sparklines, bar/line, area) & TanStack Table (virtualized rows when >500).
+* **Forms:** React Hook Form + Zod (schema-inferred types), optimistic UI where safe.
+
+### Route map (v1)
+- `/` — **Home/Connect**: show Yahoo auth state; list available leagues; CTA to connect/sync.
+- `/auth/callback` — OAuth success/failure handling; redirects to `/leagues`.
+- `/leagues` — League picker; recent sync times; per-league settings shortcut.
+- `/league/:leagueKey` — **League dashboard**: standings, schedule, injuries, waiver budget, news pulse, scoring summary.
+- `/team/:teamKey/week/:week` — **Weekly Lineup**: optimizer, projections vs actuals, lock status, submit lineup.
+- `/waivers/:leagueKey` — **Waiver Center**: candidates, projected delta vs replacement, FAAB guidance, claim builder.
+- `/trades/:leagueKey` — **Trade Lab**: build packages, team needs heatmap, delta ROS points.
+- `/draft/:leagueKey` — **Draft Tools**: pick predictor, VOR board, roster build chart.
+- `/settings` — Theme, data refresh cadence, CSV projection import, API base URL.
+
+### Directory scaffold (suggested)
+```text
+/web
+  ├─ index.html
+  ├─ src/
+  │  ├─ main.tsx
+  │  ├─ app.css
+  │  ├─ routes/
+  │  │  ├─ Home.tsx               # `/`
+  │  │  ├─ Leagues.tsx            # `/leagues`
+  │  │  ├─ LeagueDashboard.tsx    # `/league/:leagueKey`
+  │  │  ├─ Lineup.tsx             # `/team/:teamKey/week/:week`
+  │  │  ├─ Waivers.tsx            # `/waivers/:leagueKey`
+  │  │  ├─ Trades.tsx             # `/trades/:leagueKey`
+  │  │  └─ Draft.tsx              # `/draft/:leagueKey`
+  │  ├─ components/
+  │  │  ├─ PlayerCard.tsx
+  │  │  ├─ PositionSlot.tsx
+  │  │  ├─ LineupOptimizerPanel.tsx
+  │  │  ├─ ProjectionChart.tsx
+  │  │  ├─ SnapShareSparkline.tsx
+  │  │  ├─ InjuryBadge.tsx
+  │  │  ├─ ByeWeekBadge.tsx
+  │  │  ├─ WaiverCandidateRow.tsx
+  │  │  ├─ TradePackageBuilder.tsx
+  │  │  └─ DataTable.tsx
+  │  ├─ stores/
+  │  │  └─ useAppStore.ts         # theme, selected league/team, UI prefs
+  │  ├─ hooks/
+  │  │  ├─ useYahooAuth.ts        # reads auth status from backend
+  │  │  ├─ useLeagues.ts          # TanStack Query wrappers
+  │  │  ├─ useLineup.ts
+  │  │  ├─ useWaivers.ts
+  │  │  └─ useTrades.ts
+  │  ├─ lib/
+  │  │  ├─ api.ts                 # Axios/fetch client with interceptors
+  │  │  ├─ queryClient.ts         # shared QueryClient
+  │  │  └─ scoring.ts             # client-side helpers for point calc display
+  │  └─ types/
+  │     └─ api.d.ts               # shared types (OpenAPI-generated if available)
+  └─ vite.config.ts
+```
+
+### Core screens & components (v1)
+**Home/Connect**
+- `ConnectYahooButton`: opens `/auth/yahoo/start` in new tab; shows spinner + error states.
+- `TokenStatusCard`: indicates token freshness; CTA to re-auth.
+
+**League Dashboard**
+- `StandingsTable (DataTable)`: sortable, sticky header, virtualized rows.
+- `NewsPulse`: merges injury/inactive headlines for your roster.
+- `ScheduleMatrix`: week-by-week opponent view with projected totals.
+
+**Weekly Lineup**
+- `LineupOptimizerPanel`: shows current lineup vs **Optimal**; `Apply` button triggers PUT to `/yahoo/lineup/{team_key}`.
+- `PositionSlot`: droppable slots; drag players between slots (with rules awareness).
+- `ProjectionChart`: area chart of projected vs actual per slot; confidence bands.
+- `SnapShareSparkline` + `InjuryBadge` + `ByeWeekBadge` on `PlayerCard`.
+
+**Waiver Center**
+- `CandidateFilters`: position, roster %, weeks to playoffs, volatility.
+- `WaiverCandidateRow`: delta points vs current worst starter; FAAB guidance; `Add Claim`.
+
+**Trade Lab**
+- `TeamNeedsHeatmap`: positional needs across league.
+- `TradePackageBuilder`: drag players to My/Their panes; compute delta weekly/ROS.
+
+### Data flow & cache strategy
+- **Query keys:** `['leagues']`, `['league', leagueKey]`, `['team', teamKey, week]`, `['waivers', leagueKey]`, `['trades', leagueKey]`.
+- **Stale times:** leagues (1h), league meta (30m), lineup (30s during game windows, 5m otherwise), waivers (15m), trades (15m).
+- **Invalidations:** after lineup submit → invalidate `team` and `league` queries; after CSV import → invalidate `projections`.
+- **Optimistic updates:** lineup assignment (UI reflects change immediately; rollback on error). Disable optimistic for transactions that may fail (waiver claims) and show server result instead.
+
+### API client & typing
+- Generate TypeScript types from FastAPI OpenAPI: `openapi-typescript http://localhost:8000/openapi.json -o web/src/types/api.d.ts`.
+- Centralized `api.ts` with auth-aware fetch/axios, error normalization, and retry policy.
+
+### Performance & UX
+- Route-level **code splitting**; keep above-the-fold first paint < 1s on dev.
+- Virtualize large tables; memoize heavy rows (e.g., waiver lists).
+- Persist UI prefs in `localStorage` via Zustand middleware.
+- **Dark mode** and compact density toggle.
+
+### Accessibility
+- Radix components; focus traps on dialogs; color-contrast validated; keyboard nav on tables (arrow keys) and grids (lineup slots).
+
+### Testing
+- **Unit/Component:** Vitest + React Testing Library.
+- **E2E:** Playwright smoke flows (connect → league → set lineup → submit).
+
+### Local dev & security
+- Frontend on `http://localhost:5173`, backend FastAPI on `http://localhost:8000` (CORS allowed in dev).
+- No secrets in the client; Yahoo tokens remain server-side; session via HTTP-only cookie or JWT with short TTL.
+
+### Milestones
+1. **M1:** Home/Connect + Leagues (auth wired, list leagues).
+2. **M2:** League Dashboard (standings, injuries, schedule, scoring summary).
+3. **M3:** Weekly Lineup (optimizer + submit lineup).
+4. **M4:** Waiver Center (delta calc + claim builder; submit optional).
+5. **M5:** Trade Lab (delta & finder MVP).
+6. **M6 (optional):** Draft Tools overlay & browser extension bridge (content script calls local API; Shadow DOM to isolate styles).
 
 ## Phase 4 — Start/Sit Assistant (with one-click submit)
 

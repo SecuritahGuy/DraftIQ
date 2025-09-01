@@ -63,10 +63,18 @@ The cursor rules follow the modern `.cursor/rules/` format with proper metadata,
 - OAuth flow with Yahoo (3-legged)
 - Initial sync endpoints for leagues, teams, and rosters
 
-🔄 **Phase 2 In Progress**: Data model (SQLite first)
-- Core database tables for leagues, teams, players, rosters
-- Data synchronization and caching strategies
-- Player ID mapping between Yahoo and public data sources
+✅ **Phase 2 Complete**: Data model (SQLite first)
+- Core database tables for leagues, teams, players, rosters, and NFL data
+- Data synchronization service with caching strategies
+- Player ID mapping between Yahoo and public data sources (nfl_data_py)
+- Comprehensive API endpoints for data sync and player mapping
+- NFL data import functionality working (12,114 players processed)
+
+🔄 **Phase 3 In Progress**: Scoring engine & projections
+- Weekly stats and projections models
+- Custom scoring compiler for Yahoo league rules
+- Baseline projections from NFL data
+- Integration with nfl_data_py for statistics
 
 ## Project Structure
 
@@ -84,12 +92,14 @@ draftiq/
 │   │   └── v1/            # API version 1
 │   │       ├── __init__.py
 │   │       ├── auth.py    # OAuth authentication endpoints
-│   │       └── yahoo.py   # Yahoo sync endpoints
+│   │       ├── yahoo.py   # Yahoo sync endpoints
+│   │       └── data_sync.py # Data sync and mapping endpoints
 │   ├── models/            # SQLAlchemy models
 │   │   ├── __init__.py
 │   │   ├── base.py        # Base model class
 │   │   ├── user.py        # User and OAuth token models
-│   │   └── fantasy.py     # Fantasy football models
+│   │   ├── fantasy.py     # Fantasy football models
+│   │   └── nfl_data.py    # NFL data models (stats, projections, injuries)
 │   ├── schemas/           # Pydantic schemas
 │   │   ├── __init__.py
 │   │   ├── auth.py        # Authentication schemas
@@ -97,7 +107,9 @@ draftiq/
 │   ├── services/          # Business logic
 │   │   ├── __init__.py
 │   │   ├── yahoo_oauth.py # Yahoo OAuth service
-│   │   └── yahoo_api.py   # Yahoo API client service
+│   │   ├── yahoo_api.py   # Yahoo API client service
+│   │   ├── data_sync.py   # Data synchronization service
+│   │   └── player_mapping.py # Player ID mapping service
 │   ├── utils/             # Utility functions
 │   │   └── __init__.py
 │   └── tests/             # Test files
