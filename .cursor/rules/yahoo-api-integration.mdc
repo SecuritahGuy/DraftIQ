@@ -1,0 +1,137 @@
+---
+description: Yahoo Fantasy API Integration Guidelines
+globs: ["**/yahoo*.py", "**/oauth*.py", "**/auth*.py"]
+alwaysApply: false
+---
+
+# Yahoo Fantasy API Integration Guidelines
+
+## When Implementing OAuth Flow
+- Always implement proper state validation for OAuth requests
+- Store refresh tokens securely in the database
+- Implement automatic token refresh before expiration
+- Handle OAuth errors gracefully with user-friendly messages
+- Use proper scopes for fantasy sports access
+- Implement proper redirect URI validation
+
+## When Creating API Client Wrappers
+- Implement retry logic with exponential backoff for failed requests
+- Handle rate limiting with proper backoff strategies
+- Cache API responses to minimize external calls
+- Use proper timeout values for API requests
+- Implement connection pooling for HTTP clients
+- Handle API versioning appropriately
+
+## When Managing Authentication Tokens
+- Store tokens securely with encryption
+- Implement automatic token refresh logic
+- Handle token expiration gracefully
+- Log authentication events for security
+- Implement proper error handling for auth failures
+- Use environment variables for client credentials
+
+## When Synchronizing League Data
+- Implement incremental updates to minimize API calls
+- Handle partial data failures gracefully
+- Cache league metadata appropriately
+- Implement proper error recovery for sync failures
+- Log sync operations for debugging
+- Handle different league formats and sizes
+
+## When Working with Player Data
+- Implement proper player ID mapping between systems
+- Handle player name variations and updates
+- Cache player statistics to reduce API calls
+- Implement proper data validation for player information
+- Handle missing or incomplete player data
+- Update player status (injuries, suspensions) regularly
+
+## When Processing Roster Information
+- Handle different roster slot configurations
+- Implement proper position validation
+- Cache roster data with appropriate TTL
+- Handle roster changes and transactions
+- Implement proper week-based roster tracking
+- Handle bye weeks and injury status
+
+## When Managing Draft Data
+- Store draft results for historical analysis
+- Handle different draft formats (snake, auction)
+- Implement proper draft pick tracking
+- Cache draft data for performance
+- Handle draft timing and scheduling
+- Implement proper draft analysis tools
+
+## When Implementing Error Handling
+- Create specific exception classes for different error types
+- Handle API rate limits gracefully
+- Implement proper logging for debugging
+- Provide meaningful error messages to users
+- Handle network failures and timeouts
+- Implement circuit breaker patterns for API failures
+
+## When Optimizing Performance
+- Cache frequently accessed data (leagues, teams, players)
+- Implement proper cache invalidation strategies
+- Use background tasks for heavy sync operations
+- Optimize API request patterns
+- Monitor API usage and rate limits
+- Implement proper connection pooling
+
+## When Testing Yahoo API Integration
+- Mock Yahoo API responses for unit tests
+- Create test fixtures for common data structures
+- Test OAuth flow with mock responses
+- Test error scenarios and edge cases
+- Use test databases for integration tests
+- Mock external dependencies appropriately
+
+## When Handling Data Validation
+- Validate all API responses before processing
+- Handle missing or null data gracefully
+- Implement proper data type validation
+- Validate league and team ownership
+- Handle data format changes from Yahoo
+- Implement proper error reporting for validation failures
+
+## When Implementing Caching Strategies
+- Cache league metadata with longer TTL
+- Cache player data with appropriate expiration
+- Implement user-specific cache keys when needed
+- Cache API responses to reduce external calls
+- Implement cache warming for frequently accessed data
+- Monitor cache hit rates and performance
+
+## When Managing API Rate Limits
+- Implement proper rate limiting awareness
+- Use exponential backoff for rate limit errors
+- Cache responses to minimize API calls
+- Monitor API usage patterns
+- Implement proper error handling for rate limits
+- Use background tasks for bulk operations
+
+## When Handling League-Specific Features
+- Support different scoring formats (PPR, Standard, Custom)
+- Handle different roster configurations
+- Implement proper FAAB and waiver priority logic
+- Support different league sizes and formats
+- Handle keeper and dynasty league features
+- Implement proper playoff and championship logic
+
+## When Implementing Security Measures
+- Validate OAuth state parameters
+- Implement proper token storage and encryption
+- Log authentication and authorization events
+- Handle sensitive data appropriately
+- Implement proper error handling for security issues
+- Use HTTPS for all API communications
+
+## When Creating User Experience Features
+- Provide clear error messages for API failures
+- Implement proper loading states during API calls
+- Cache data to improve response times
+- Handle offline scenarios gracefully
+- Provide feedback for long-running operations
+- Implement proper retry mechanisms for users
+
+Remember: Always prioritize user experience, handle errors gracefully, and implement proper caching to minimize API calls while maintaining data freshness.

@@ -1,0 +1,107 @@
+---
+description: FastAPI Development Guidelines for DraftIQ
+globs: ["**/*.py"]
+alwaysApply: false
+---
+
+# FastAPI Development Guidelines
+
+## When Creating API Endpoints
+- Always use async/await for all endpoint functions
+- Implement proper dependency injection for database sessions and authentication
+- Use Pydantic models for all request and response schemas
+- Return appropriate HTTP status codes (200, 201, 400, 401, 403, 404, 422, 500)
+- Implement proper error handling with try/catch blocks
+- Use background tasks for long-running operations
+- Structure endpoints logically with proper URL patterns
+- Include comprehensive docstrings for all endpoints
+
+## When Designing Response Models
+- Create base response models that include success status and timestamps
+- Use generic types for paginated responses
+- Include proper field validation and descriptions
+- Provide example data in schema definitions
+- Use computed fields for derived data
+- Implement proper error response models
+
+## When Implementing Dependency Injection
+- Create reusable dependency functions for database sessions
+- Implement proper authentication dependencies
+- Use dependency overrides for testing
+- Create service-level dependencies for external APIs
+- Ensure proper cleanup in dependency functions
+- Use async generators for database sessions
+
+## When Handling Errors
+- Create custom exception classes for different error types
+- Implement global exception handlers
+- Provide meaningful error messages to users
+- Log errors with appropriate levels
+- Return consistent error response formats
+- Handle edge cases gracefully
+
+## When Working with Database Operations
+- Use SQLAlchemy 2.0 async patterns
+- Implement proper transaction management
+- Use eager loading for related data
+- Optimize queries with proper joins
+- Implement database connection pooling
+- Use database migrations for schema changes
+
+## When Implementing Caching
+- Cache expensive API responses
+- Use appropriate TTL values for different data types
+- Implement cache invalidation strategies
+- Use user-specific cache keys when needed
+- Cache database query results appropriately
+- Monitor cache hit rates
+
+## When Creating Middleware
+- Implement request logging middleware
+- Add rate limiting for API endpoints
+- Create authentication middleware
+- Add CORS handling if needed
+- Implement performance monitoring
+- Add security headers
+
+## When Writing Tests
+- Use pytest-asyncio for async tests
+- Mock external API calls
+- Create test fixtures for common data
+- Test both success and error scenarios
+- Use test databases for database tests
+- Implement integration tests for endpoints
+
+## When Optimizing Performance
+- Use connection pooling for external APIs
+- Implement proper database indexing
+- Cache frequently accessed data
+- Use background tasks for heavy operations
+- Monitor and log performance metrics
+- Optimize database queries
+
+## When Implementing Security
+- Validate all input data with Pydantic
+- Use environment variables for secrets
+- Implement proper OAuth flows
+- Add rate limiting to prevent abuse
+- Log security events
+- Use HTTPS for all external calls
+
+## When Structuring Code
+- Follow the established project directory structure
+- Use snake_case for files and functions
+- Use PascalCase for classes
+- Group related functionality in modules
+- Keep functions focused and single-purpose
+- Use proper imports and avoid circular dependencies
+
+## When Documenting Code
+- Write docstrings for all public functions
+- Use Google-style docstrings
+- Include type information in docstrings
+- Document API endpoints with FastAPI decorators
+- Provide examples in documentation
+- Keep README files updated
+
+Remember: Always prioritize code quality, maintainability, and user experience when implementing FastAPI features.

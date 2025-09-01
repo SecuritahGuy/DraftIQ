@@ -1,0 +1,167 @@
+# Fantasy Football Analytics Guidelines
+
+## When Creating Start/Sit Recommendations
+- Consider multiple factors: projections, matchups, injuries, weather
+- Implement proper position-specific analysis
+- Account for league scoring format differences
+- Consider bye weeks and roster constraints
+- Implement confidence scoring for recommendations
+- Provide reasoning for each recommendation
+
+## When Building Projection Models
+- Use historical data for baseline projections
+- Incorporate recent performance trends
+- Account for opponent defensive statistics
+- Consider weather conditions and game scripts
+- Implement proper regression analysis
+- Provide confidence intervals for projections
+
+## When Analyzing Matchups
+- Evaluate opponent defensive statistics
+- Consider home/away game factors
+- Account for weather conditions
+- Analyze historical performance against similar opponents
+- Consider team offensive trends
+- Implement matchup difficulty scoring
+
+## When Processing Scoring Rules
+- Parse Yahoo scoring rules into executable format
+- Handle different scoring formats (PPR, Standard, Custom)
+- Implement proper position-specific scoring
+- Account for bonus scoring and thresholds
+- Validate scoring rule implementations
+- Test scoring calculations with known data
+
+## When Creating Waiver Wire Analysis
+- Evaluate player availability and ownership percentages
+- Consider team needs and roster construction
+- Analyze upcoming schedule and matchups
+- Implement FAAB bidding recommendations
+- Consider long-term vs short-term value
+- Provide add/drop recommendations with reasoning
+
+## When Building Trade Analysis Tools
+- Evaluate trade value for both teams
+- Consider roster construction and needs
+- Analyze rest-of-season schedules
+- Implement trade value calculators
+- Consider league-specific factors
+- Provide trade recommendations with explanations
+
+## When Implementing Draft Tools
+- Create league-aware mock draft simulations
+- Analyze historical draft patterns
+- Implement ADP (Average Draft Position) analysis
+- Consider league size and format differences
+- Provide draft strategy recommendations
+- Implement live draft assistance features
+
+## When Processing Player Rankings
+- Create position-specific ranking algorithms
+- Consider different scoring formats
+- Implement tier-based ranking systems
+- Account for injury risk and upside potential
+- Provide ranking explanations and reasoning
+- Update rankings based on new information
+
+## When Analyzing Team Performance
+- Evaluate team strengths and weaknesses
+- Analyze roster construction quality
+- Consider schedule difficulty and playoff odds
+- Implement team comparison tools
+- Provide improvement recommendations
+- Track team performance over time
+
+## When Creating Lineup Optimization
+- Implement proper roster slot constraints
+- Consider flex position optimization
+- Account for injury status and game-time decisions
+- Optimize for different scoring formats
+- Provide multiple lineup options
+- Explain optimization reasoning
+
+## When Building Statistical Models
+- Use appropriate statistical methods for fantasy analysis
+- Implement proper data normalization
+- Consider sample size and statistical significance
+- Account for variance and uncertainty
+- Validate models with historical data
+- Provide model confidence metrics
+
+## When Processing Injury Analysis
+- Track injury status and severity
+- Consider injury impact on performance
+- Analyze backup player value
+- Implement injury risk assessment
+- Provide injury-based recommendations
+- Update analysis as injury status changes
+
+## When Creating Weekly Analysis
+- Provide weekly start/sit recommendations
+- Analyze weekly matchups and trends
+- Consider weather and game script factors
+- Implement weekly projection updates
+- Provide weekly waiver wire analysis
+- Create weekly trade analysis
+
+## When Implementing Season-Long Analysis
+- Track season-long trends and patterns
+- Analyze playoff race and odds
+- Consider keeper and dynasty implications
+- Implement season-long projection updates
+- Provide season-long strategy recommendations
+- Analyze historical season patterns
+
+## When Building Recommendation Engines
+- Implement multiple recommendation algorithms
+- Consider user preferences and settings
+- Provide personalized recommendations
+- Explain recommendation reasoning
+- Allow user feedback and learning
+- Implement recommendation confidence scoring
+
+## When Creating Data Visualization
+- Design clear and informative charts
+- Use appropriate chart types for different data
+- Implement interactive visualization features
+- Provide context and explanations for charts
+- Use consistent color schemes and styling
+- Ensure accessibility and readability
+
+## When Implementing Machine Learning
+- Use appropriate ML algorithms for fantasy analysis
+- Implement proper feature engineering
+- Consider model interpretability
+- Validate models with cross-validation
+- Monitor model performance over time
+- Provide model explanations and reasoning
+
+## When Creating User Experience Features
+- Design intuitive and user-friendly interfaces
+- Provide clear explanations for recommendations
+- Implement customizable settings and preferences
+- Create helpful tooltips and documentation
+- Ensure responsive design for different devices
+- Implement proper error handling and feedback
+
+## When Optimizing Performance
+- Cache expensive calculations and analysis
+- Implement efficient algorithms for large datasets
+- Use background processing for heavy computations
+- Optimize database queries for analytics
+- Monitor performance metrics and bottlenecks
+- Implement proper resource management
+
+## When Testing Analytics Features
+- Create comprehensive test datasets
+- Test recommendation algorithms with known outcomes
+- Validate statistical models and calculations
+- Test edge cases and error conditions
+- Implement A/B testing for recommendations
+- Monitor accuracy and performance metrics
+
+Remember: Always prioritize accuracy, provide clear explanations, and focus on actionable insights that help users make better fantasy football decisions.
+description:
+globs:
+alwaysApply: true
+---

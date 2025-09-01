@@ -1,0 +1,125 @@
+---
+description: DraftIQ Fantasy Football Analytics Platform - Main Project Guidelines
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# DraftIQ - Fantasy Football Analytics Platform
+# Main Project Guidelines for AI Assistant Behavior
+
+## Project Context
+You are helping build DraftIQ, a local Fantasy Football analytics platform that integrates with Yahoo Fantasy Football API. The goal is to create a robust, scalable system that provides start/sit recommendations, waiver analysis, trade evaluation, and draft tools.
+
+## Technology Stack
+- **Backend**: FastAPI with SQLAlchemy 2.0 and SQLite
+- **Data Sources**: Yahoo Fantasy API, nfl_data_py for NFL statistics
+- **Authentication**: OAuth 2.0 with Yahoo
+- **Data Processing**: Python with pandas, numpy for analytics
+- **Testing**: pytest with async support
+
+## Code Generation Guidelines
+- Always use Python 3.9+ with type hints for all functions and methods
+- Prefer async/await patterns for all I/O operations (database, API calls, HTTP requests)
+- Use FastAPI with SQLAlchemy 2.0 for the backend architecture
+- Implement proper error handling with custom exception classes
+- Follow PEP 8 with 88-character line limits (black formatting)
+- Use Pydantic models for all request/response schemas
+- Implement dependency injection for database sessions and external services
+
+## Architecture Patterns
+- Structure code using a layered architecture: API routes → Services → Models
+- Use SQLAlchemy 2.0 with async support and proper relationship definitions
+- Implement caching strategies for expensive operations (API calls, calculations)
+- Use background tasks for long-running operations
+- Follow RESTful API design principles with proper HTTP status codes
+- Implement proper logging with structured logging patterns
+
+## Database Design Rules
+- Use SQLite for local development with proper indexing
+- Store complex data (scoring rules, projections) as JSON fields
+- Implement proper foreign key relationships with cascade behaviors
+- Use database migrations with Alembic for schema changes
+- Cache frequently accessed data to minimize database queries
+- Use connection pooling for performance optimization
+
+## API Integration Patterns
+- Implement retry logic with exponential backoff for external API calls
+- Handle rate limits gracefully with proper backoff strategies
+- Cache API responses appropriately to minimize external calls
+- Use async HTTP clients (httpx) for external API requests
+- Implement proper error handling for API failures
+- Use connection pooling for external API clients
+
+## Security Best Practices
+- Validate all input data with Pydantic models
+- Use environment variables for all sensitive configuration
+- Implement proper OAuth flow with state validation
+- Use HTTPS for all external API communications
+- Implement rate limiting for API endpoints
+- Log security events appropriately
+
+## Testing Guidelines
+- Write unit tests for all business logic functions
+- Use pytest-asyncio for testing async code
+- Mock external API calls in tests
+- Test database operations with test database instances
+- Implement integration tests for API endpoints
+- Use factories for generating test data
+
+## Performance Considerations
+- Implement caching for expensive calculations and API calls
+- Use database indexes for frequently queried fields
+- Optimize database queries with proper joins and eager loading
+- Use background tasks for long-running operations
+- Implement connection pooling for database and external APIs
+- Monitor and log performance metrics
+
+## Code Organization Rules
+- Follow the established directory structure for the project
+- Use snake_case for files, functions, and variables
+- Use PascalCase for classes and database models
+- Use UPPER_SNAKE_CASE for constants
+- Group related functionality in appropriate modules
+- Keep functions focused and single-purpose
+
+## Documentation Standards
+- Write docstrings for all public functions and classes
+- Use Google-style docstrings with type information
+- Document API endpoints with FastAPI decorators
+- Include examples in docstrings where helpful
+- Maintain up-to-date README files
+- Document database schema changes
+
+## Error Handling Rules
+- Use custom exception classes for different error types
+- Implement proper logging with structured logging
+- Return appropriate HTTP status codes for API errors
+- Provide meaningful error messages to users
+- Handle edge cases gracefully
+- Implement global exception handlers
+
+## Development Workflow
+- Always consider the user experience when making design decisions
+- Prioritize code quality and maintainability over clever solutions
+- Use dependency injection to make code testable
+- Implement proper separation of concerns
+- Follow the single responsibility principle
+- Use composition over inheritance
+
+## Specific Domain Rules for Fantasy Football
+- Handle different scoring formats (PPR, Standard, Custom) flexibly
+- Implement proper player position handling (QB, RB, WR, TE, K, DEF)
+- Consider bye weeks and injury status in recommendations
+- Account for league-specific roster requirements
+- Handle different league sizes and formats
+- Implement proper FAAB and waiver priority logic
+
+## Communication Guidelines
+- Explain the reasoning behind architectural decisions
+- Suggest improvements when you see opportunities
+- Ask clarifying questions when requirements are unclear
+- Provide context for why certain patterns are recommended
+- Consider the long-term maintainability of solutions
+- Focus on practical, implementable solutions
+
+Remember: The goal is to build a robust, scalable fantasy football analytics platform that provides real value to users while maintaining high code quality and developer experience.

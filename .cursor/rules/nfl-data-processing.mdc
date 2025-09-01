@@ -1,0 +1,145 @@
+---
+description: NFL Data Processing Guidelines with nfl_data_py
+globs: ["**/nfl*.py", "**/data*.py", "**/stats*.py"]
+alwaysApply: false
+---
+
+# NFL Data Processing Guidelines
+
+## When Working with nfl_data_py Library
+- Use the library's built-in functions for importing data
+- Handle data import errors gracefully
+- Implement proper data validation after import
+- Cache imported data to avoid repeated downloads
+- Use appropriate data types for different statistics
+- Handle missing or incomplete data appropriately
+
+## When Processing Player Statistics
+- Validate all statistical data before processing
+- Handle different position-specific statistics correctly
+- Implement proper data type conversions
+- Handle missing values with appropriate defaults
+- Cache processed statistics for performance
+- Implement data quality checks and validation
+
+## When Managing Player ID Mapping
+- Use nfl_data_py's import_ids function for ID mapping
+- Create local ID mapping tables for cross-platform compatibility
+- Handle player name variations and updates
+- Implement proper ID validation and verification
+- Cache ID mappings to improve performance
+- Handle cases where IDs don't exist in all systems
+
+## When Processing Weekly Data
+- Import weekly statistics using appropriate functions
+- Handle different weeks and seasons correctly
+- Implement proper data aggregation for season totals
+- Cache weekly data with appropriate expiration
+- Handle missing weekly data gracefully
+- Implement incremental updates for efficiency
+
+## When Working with Injury Data
+- Import injury reports using nfl_data_py functions
+- Handle different injury status types appropriately
+- Implement proper injury tracking and updates
+- Cache injury data with short TTL for freshness
+- Handle missing injury information gracefully
+- Implement injury impact analysis for recommendations
+
+## When Processing Depth Charts
+- Import depth chart data for all positions
+- Handle different depth chart formats correctly
+- Implement proper position hierarchy tracking
+- Cache depth chart data with appropriate TTL
+- Handle depth chart changes and updates
+- Implement depth chart analysis for player value
+
+## When Working with Snap Counts
+- Import snap count data for usage analysis
+- Handle different snap count formats correctly
+- Implement proper usage percentage calculations
+- Cache snap count data for performance
+- Handle missing snap count data appropriately
+- Implement snap count analysis for player evaluation
+
+## When Processing Play-by-Play Data
+- Use nfl_data_py's play-by-play import functions
+- Handle large play-by-play datasets efficiently
+- Implement proper data filtering and aggregation
+- Cache processed play-by-play data appropriately
+- Handle missing or incomplete play data
+- Implement play-by-play analysis for advanced statistics
+
+## When Implementing Data Validation
+- Validate all imported data for completeness
+- Check for data type consistency
+- Implement range validation for statistical data
+- Handle outliers and anomalous data appropriately
+- Implement data quality scoring and reporting
+- Create data validation reports for monitoring
+
+## When Optimizing Data Performance
+- Cache frequently accessed data appropriately
+- Implement data compression for large datasets
+- Use efficient data structures for statistical analysis
+- Implement lazy loading for large datasets
+- Optimize database queries for statistical data
+- Monitor data processing performance
+
+## When Handling Data Updates
+- Implement incremental data updates efficiently
+- Handle data format changes from sources
+- Implement proper data versioning and tracking
+- Handle data source availability issues
+- Implement fallback data sources when possible
+- Monitor data freshness and update frequency
+
+## When Creating Statistical Models
+- Use appropriate statistical methods for fantasy analysis
+- Implement proper data normalization and scaling
+- Handle different scoring formats in calculations
+- Implement confidence intervals for projections
+- Use historical data for trend analysis
+- Implement proper model validation and testing
+
+## When Processing Team and Schedule Data
+- Import team information and schedules correctly
+- Handle different schedule formats appropriately
+- Implement proper bye week tracking
+- Cache schedule data with appropriate TTL
+- Handle schedule changes and updates
+- Implement schedule analysis for matchup evaluation
+
+## When Working with Weather Data
+- Import weather data when available
+- Handle weather impact on player performance
+- Implement weather-based adjustments to projections
+- Cache weather data with short TTL
+- Handle missing weather data appropriately
+- Implement weather analysis for game conditions
+
+## When Implementing Data Export
+- Export processed data in appropriate formats
+- Implement data backup and recovery procedures
+- Handle data export errors gracefully
+- Implement data versioning for exports
+- Create data export logs for tracking
+- Implement data export validation
+
+## When Testing Data Processing
+- Create test datasets for validation
+- Test data import functions with mock data
+- Test data processing pipelines end-to-end
+- Test error handling for data failures
+- Test performance with large datasets
+- Implement data processing integration tests
+
+## When Monitoring Data Quality
+- Implement data quality metrics and monitoring
+- Create alerts for data quality issues
+- Monitor data freshness and update frequency
+- Track data processing performance metrics
+- Implement data quality reporting
+- Create data quality dashboards
+
+Remember: Always prioritize data accuracy, handle missing data gracefully, and implement proper validation to ensure reliable fantasy football analysis.
