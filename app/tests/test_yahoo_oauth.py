@@ -1,5 +1,5 @@
 import urllib.parse
-from datetime import datetime
+from datetime import datetime, timezone
 
 from app.services.yahoo_oauth import YahooOAuthService
 
@@ -39,4 +39,4 @@ def test_parse_token_response_calculates_expiration():
     assert parsed["scope"] == token_data["scope"]
     assert parsed["expires_in"] == token_data["expires_in"]
     assert isinstance(parsed["expires_at"], datetime)
-    assert parsed["expires_at"] > datetime.utcnow()
+    assert parsed["expires_at"] > datetime.now(timezone.utc)
