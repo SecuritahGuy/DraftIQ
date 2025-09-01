@@ -3,7 +3,7 @@ Configuration settings for DraftIQ application.
 """
 
 from typing import Optional
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings
 
 
@@ -48,6 +48,13 @@ class Settings(BaseSettings):
     
     # Logging
     log_level: str = Field(default="INFO", description="Logging level")
+    
+    @field_validator('access_token_expire_minutes')
+    @classmethod
+    def validate_access_token_expire_minutes(cls, v):
+        if v <= 0:
+            raise ValueError('access_token_expire_minutes must be positive')
+        return v
     
     class Config:
         env_file = ".env"
