@@ -42,7 +42,7 @@ describe('Home', () => {
     expect(screen.getByText('Ready to dominate your fantasy league?')).toBeInTheDocument();
     expect(screen.getByText('Active Leagues')).toBeInTheDocument();
     expect(screen.getByText('This Week')).toBeInTheDocument();
-    expect(screen.getByText('Projections')).toBeInTheDocument();
+    expect(screen.getByText('Historical Data')).toBeInTheDocument();
   });
 
   it('shows league count in Active Leagues card', () => {
@@ -89,6 +89,6 @@ describe('Home', () => {
     renderWithQueryClient(<Home />);
 
     expect(screen.getByText('Recent Activity')).toBeInTheDocument();
-    expect(screen.getByText('No recent activity')).toBeInTheDocument();
+    expect(screen.getByText('Historical Data Loaded')).toBeInTheDocument();
   });
 });

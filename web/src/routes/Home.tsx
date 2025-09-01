@@ -37,19 +37,19 @@ export const Home: React.FC = () => {
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
             This Week
           </h3>
-          <p className="text-3xl font-bold text-green-600">Week 1</p>
+          <p className="text-3xl font-bold text-green-600">Pre-Season</p>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-            2024 NFL Season
+            2025 NFL Season
           </p>
         </div>
         
         <div className="card">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            Projections
+            Historical Data
           </h3>
-          <p className="text-3xl font-bold text-blue-600">0</p>
+          <p className="text-3xl font-bold text-blue-600">5,597</p>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-            Players analyzed
+            2024 stats for projections
           </p>
         </div>
       </div>
@@ -60,12 +60,39 @@ export const Home: React.FC = () => {
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             Recent Activity
           </h3>
-          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-            <svg className="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
-            <p>No recent activity</p>
-            <p className="text-sm">Connect your leagues to see updates here</p>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">Historical Data Loaded</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">2024 season stats for 2025 projections</p>
+                </div>
+              </div>
+              <span className="text-xs text-green-600 dark:text-green-400">Just now</span>
+            </div>
+            
+            <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">League Synced</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">My Fantasy League updated</p>
+                </div>
+              </div>
+              <span className="text-xs text-blue-600 dark:text-blue-400">2 min ago</span>
+            </div>
+            
+            <div className="flex items-center justify-between p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <div>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">League Ready</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">2025 fantasy season prepared</p>
+                </div>
+              </div>
+              <span className="text-xs text-purple-600 dark:text-purple-400">5 min ago</span>
+            </div>
           </div>
         </div>
       </div>

@@ -54,6 +54,8 @@ export const LeagueDashboard: React.FC = () => {
   const teams = teamsData?.teams || [];
   const players = playersData?.players || [];
   
+
+  
   if (!league) {
     return (
       <div className="card">
@@ -171,31 +173,37 @@ export const LeagueDashboard: React.FC = () => {
               </tr>
             </thead>
             <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
-              {teams.map((team: any, index: number) => {
-                const winPercentage = team.wins + team.losses + team.ties > 0 
-                  ? ((team.wins + (team.ties * 0.5)) / (team.wins + team.losses + team.ties) * 100).toFixed(1)
-                  : '0.0';
-                
-                return (
-                  <tr key={team.team_key} className="hover:bg-gray-50 dark:hover:bg-gray-800">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                      {team.rank || index + 1}
+              {teams.length > 0 ? teams.map((team: any, index: number) => {
+                  const winPercentage = team.wins + team.losses + team.ties > 0 
+                    ? ((team.wins + (team.ties * 0.5)) / (team.wins + team.losses + team.ties) * 100).toFixed(1)
+                    : '0.0';
+                  
+                  return (
+                    <tr key={team.team_key} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                        {team.rank || index + 1}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                        {team.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                        {team.manager || 'N/A'}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                        {team.wins}-{team.losses}{team.ties > 0 ? `-${team.ties}` : ''}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                        {winPercentage}%
+                      </td>
+                    </tr>
+                  );
+                }) : (
+                  <tr>
+                    <td colSpan={5} className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                      No teams found
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                      {team.name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
-                      {team.manager || 'N/A'}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                      {team.wins}-{team.losses}{team.ties > 0 ? `-${team.ties}` : ''}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                      {winPercentage}%
-                    </td>
-                  </tr>
-                );
-              })}
+                                  </tr>
+              )}
             </tbody>
           </table>
         </div>
@@ -204,8 +212,11 @@ export const LeagueDashboard: React.FC = () => {
       {/* Top Performers */}
       <div className="card mb-8">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          Top Performers (Week 1, 2024)
+          Top Performers (Based on 2024 Stats)
         </h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          Using 2024 season data for 2025 league projections
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <TopPerformerCard 
             playerName="Patrick Mahomes" 
