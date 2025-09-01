@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 Tests for SQLAlchemy models.
 """
