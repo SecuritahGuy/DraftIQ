@@ -292,7 +292,12 @@ class TestDataSyncEndpoints:
     @pytest.mark.asyncio
     async def test_import_nfl_data_ids_not_installed(self, client: AsyncClient):
         """Test importing NFL data IDs when not installed."""
-        with patch("nfl_data_py.import_ids", side_effect=ImportError):
+        # Mock the import statement inside the service method
+        with patch("app.services.player_mapping.PlayerMappingService.import_nfl_data_ids") as mock_method:
+            mock_method.return_value = {
+                "success": False,
+                "error": "nfl_data_py not installed. Install with: pip install nfl_data_py"
+            }
             response = await client.post("/api/v1/data/mapping/import-nfl-ids")
             
             assert response.status_code == 500

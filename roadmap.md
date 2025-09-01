@@ -1,8 +1,8 @@
 # DraftIQ - Fantasy Football Analytics Platform
 ## Progress Summary
 
-**Current Status**: Phase 2 Complete ✅  
-**Next Up**: Phase 3 (Scoring engine & projections)
+**Current Status**: Phase 3.5 In Progress 🔄  
+**Next Up**: Complete React Web UI implementation
 
 ---
 
@@ -88,20 +88,57 @@ Core tables (minimal but extensible):
 
 Use `nfl_data_py.import_ids()` to populate cross-walks between Yahoo and GSIS/PFR (we’ll persist a local mapping layer; some manual reconciliation may be required). ([GitHub][17])
 
-## Phase 3 — Scoring engine & projections
+## Phase 3 — Scoring engine & projections ✅ COMPLETED
 
-1. **Ingest** weekly/seasonal data, injuries, snaps, depth charts (`nfl_data_py.import_weekly_data`, `import_injuries`, `import_snap_counts`, `import_depth_charts`). ([GitHub][17])
-2. **Custom scoring compiler:** Parse Yahoo scoring into a dictionary, then compute fantasy points from weekly stats.
-3. **Baseline projections:**
+1. ✅ **Ingest** weekly/seasonal data, injuries, snaps, depth charts (`nfl_data_py.import_weekly_data`, `import_injuries`, `import_snap_counts`, `import_depth_charts`). ([GitHub][17])
+   - NFL data ingestion service with comprehensive API endpoints
+   - Support for weekly stats, injuries, depth charts, and snap counts
+   - Batch import functionality for all data types
+   - Individual and team-specific data retrieval endpoints
 
-   * **Usage-driven** (depth chart order × recent snap share × matchup rate stats).
-   * **QB/RB/WR/TE models:** regress last N games with opponent defensive splits; nudge by Vegas totals (available as “scoring lines/win totals” in nfl\_data\_py). ([GitHub][17])
-   * Store into `weekly_projections`.
-4. **Import projections via CSV** (optional) to override/ensemble.
+2. ✅ **Custom scoring compiler:** Parse Yahoo scoring into a dictionary, then compute fantasy points from weekly stats.
+   - Yahoo scoring rules parser with support for tier-based and threshold scoring
+   - Position-specific scoring models (QB, RB, WR, TE, K, DEF)
+   - Fantasy points calculator with detailed breakdowns
+   - League-specific scoring system retrieval and testing endpoints
+
+3. ✅ **Baseline projections:**
+
+   * ✅ **Usage-driven** (depth chart order × recent snap share × matchup rate stats).
+   * ✅ **QB/RB/WR/TE models:** regress last N games with opponent defensive splits; nudge by Vegas totals (available as "scoring lines/win totals" in nfl\_data\_py). ([GitHub][17])
+   * ✅ Store into `weekly_projections`.
+4. ✅ **Import projections via CSV** (optional) to override/ensemble.
+   - CSV import/export functionality for custom projections
+   - Template generation and validation
+   - Batch processing with error handling
+   - Support for multiple projection sources
 
 ## Phase 3.5 — React Web UI (Detailed)
 
 **Goal:** A fast, local-first UI that overlays actionable insights on Yahoo or runs as a standalone dashboard. Ship core pages first (Connect → Dashboard → Weekly Lineup) and expand to Waivers/Trades.
+
+### Progress Status
+✅ **Completed:**
+- React + TypeScript + Vite project setup with comprehensive testing
+- React Router with file-style routes (Home, Leagues, LeagueDashboard)
+- Tailwind CSS + Radix UI components with dark mode support
+- TanStack Query for server state management
+- Zustand for client state management
+- API client with proper error handling and mocking
+- Development server startup scripts (start-dev.sh, start-dev.bat)
+- PostCSS configuration fix for Tailwind CSS v4 compatibility
+- Tailwind CSS downgrade to stable v3 for better compatibility
+- Fixed ApiError import binding issue in API client
+- Fixed Yahoo OAuth 422 error by sending proper JSON body in API request
+- Fixed OAuth window not opening by correcting response data structure check
+
+🔄 **In Progress:**
+- API client with TanStack Query integration
+
+⏳ **Pending:**
+- Authentication flow and Yahoo OAuth integration
+- League dashboard with standings and key metrics
+- Weekly lineup optimizer with projections
 
 ### App architecture
 * **Routing:** React Router with file-style routes.

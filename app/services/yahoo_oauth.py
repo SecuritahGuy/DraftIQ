@@ -39,7 +39,7 @@ class YahooOAuthService:
             "redirect_uri": self.redirect_uri,
             "response_type": "code",
             "state": state,
-            "scope": "fspt-r"  # Fantasy Sports Read/Write
+            "scope": "openid"  # Basic OpenID scope
         }
         return f"{self.auth_url}?{urlencode(params)}"
     

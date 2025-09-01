@@ -36,9 +36,36 @@ The cursor rules follow the modern `.cursor/rules/` format with proper metadata,
 ### Getting Started
 
 1. Clone the repository
-2. Install dependencies: `pip install fastapi uvicorn sqlalchemy aiosqlite pydantic-settings python-dotenv`
-3. Set up environment variables (see `env.example`)
-4. Run the development server: `python -m uvicorn app.main:app --reload`
+2. Set up Python environment:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+3. Set up frontend dependencies:
+   ```bash
+   cd web
+   npm install
+   cd ..
+   ```
+4. Set up environment variables (see `env.example`)
+5. Start development servers:
+   ```bash
+   # Option 1: Use the startup script (recommended)
+   ./start-dev.sh  # On Windows: start-dev.bat
+   
+   # Option 2: Start manually
+   # Terminal 1: Backend
+   python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+   # Terminal 2: Frontend
+   cd web && npm run dev
+   ```
+
+### Development URLs
+
+- **Backend API**: http://localhost:8000
+- **API Documentation**: http://localhost:8000/docs
+- **Frontend**: http://localhost:5173
 
 ### Current Status
 
@@ -70,11 +97,18 @@ The cursor rules follow the modern `.cursor/rules/` format with proper metadata,
 - Comprehensive API endpoints for data sync and player mapping
 - NFL data import functionality working (12,114 players processed)
 
-🔄 **Phase 3 In Progress**: Scoring engine & projections
-- Weekly stats and projections models
-- Custom scoring compiler for Yahoo league rules
-- Baseline projections from NFL data
-- Integration with nfl_data_py for statistics
+✅ **Phase 3 Complete**: Scoring engine & projections
+- NFL data ingestion service with comprehensive API endpoints
+- Custom scoring compiler for Yahoo league rules with tier-based and threshold scoring
+- Usage-driven baseline projections using depth charts, snap shares, and recent performance
+- Position-specific projection models (QB, RB, WR, TE, K) with injury adjustments
+- CSV import/export functionality for custom projections
+- Fantasy points calculator with detailed breakdowns
+
+🔄 **Phase 3.5 In Progress**: React Web UI
+- Fast, local-first UI for actionable insights
+- Connect → Dashboard → Weekly Lineup workflow
+- Integration with all backend services
 
 ## Project Structure
 
@@ -93,7 +127,11 @@ draftiq/
 │   │       ├── __init__.py
 │   │       ├── auth.py    # OAuth authentication endpoints
 │   │       ├── yahoo.py   # Yahoo sync endpoints
-│   │       └── data_sync.py # Data sync and mapping endpoints
+│   │       ├── data_sync.py # Data sync and mapping endpoints
+│   │       ├── nfl_data.py # NFL data ingestion endpoints
+│   │       ├── scoring.py # Fantasy scoring endpoints
+│   │       ├── projections.py # Projection generation endpoints
+│   │       └── csv_import.py # CSV import/export endpoints
 │   ├── models/            # SQLAlchemy models
 │   │   ├── __init__.py
 │   │   ├── base.py        # Base model class
@@ -103,13 +141,18 @@ draftiq/
 │   ├── schemas/           # Pydantic schemas
 │   │   ├── __init__.py
 │   │   ├── auth.py        # Authentication schemas
-│   │   └── yahoo.py       # Yahoo API schemas
+│   │   ├── yahoo.py       # Yahoo API schemas
+│   │   └── nfl_data.py    # NFL data schemas
 │   ├── services/          # Business logic
 │   │   ├── __init__.py
 │   │   ├── yahoo_oauth.py # Yahoo OAuth service
 │   │   ├── yahoo_api.py   # Yahoo API client service
 │   │   ├── data_sync.py   # Data synchronization service
-│   │   └── player_mapping.py # Player ID mapping service
+│   │   ├── player_mapping.py # Player ID mapping service
+│   │   ├── nfl_data_ingestion.py # NFL data ingestion service
+│   │   ├── scoring_engine.py # Fantasy scoring engine
+│   │   ├── projection_engine.py # Projection generation engine
+│   │   └── csv_import.py # CSV import/export service
 │   ├── utils/             # Utility functions
 │   │   └── __init__.py
 │   └── tests/             # Test files

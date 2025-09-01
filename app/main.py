@@ -57,10 +57,14 @@ async def health_check():
 from app.models import user, fantasy, nfl_data
 
 # Include API routers
-from app.api.v1 import auth, yahoo, data_sync
+from app.api.v1 import auth, yahoo, data_sync, nfl_data, scoring, projections, csv_import
 app.include_router(auth.router, prefix=settings.api_v1_prefix)
 app.include_router(yahoo.router, prefix=settings.api_v1_prefix)
 app.include_router(data_sync.router, prefix=settings.api_v1_prefix)
+app.include_router(nfl_data.router, prefix=settings.api_v1_prefix + "/nfl")
+app.include_router(scoring.router, prefix=settings.api_v1_prefix + "/scoring")
+app.include_router(projections.router, prefix=settings.api_v1_prefix + "/projections")
+app.include_router(csv_import.router, prefix=settings.api_v1_prefix + "/csv")
 
 
 if __name__ == "__main__":
