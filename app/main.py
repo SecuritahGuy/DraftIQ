@@ -54,8 +54,9 @@ async def health_check():
 
 
 # Include API routers
-from app.api.v1 import auth
+from app.api.v1 import auth, yahoo
 app.include_router(auth.router, prefix=settings.api_v1_prefix)
+app.include_router(yahoo.router, prefix=settings.api_v1_prefix)
 
 
 if __name__ == "__main__":

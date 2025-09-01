@@ -58,10 +58,15 @@ The cursor rules follow the modern `.cursor/rules/` format with proper metadata,
 - OAuth state management for security
 - Direct authorization redirect endpoint
 
-⏳ **Phase 1 - Step 3 Pending**: Initial sync endpoints
-- `/yahoo/leagues` – list user's leagues
-- `/yahoo/league/{league_key}/pull` – scoring, rosters, draft results, schedule, transactions
-- `/yahoo/team/{team_key}/roster?week=` – current roster snapshot; cache weekly
+✅ **Phase 1 Complete**: All three steps completed
+- FastAPI app + SQLite (SQLAlchemy 2.0)
+- OAuth flow with Yahoo (3-legged)
+- Initial sync endpoints for leagues, teams, and rosters
+
+🔄 **Phase 2 In Progress**: Data model (SQLite first)
+- Core database tables for leagues, teams, players, rosters
+- Data synchronization and caching strategies
+- Player ID mapping between Yahoo and public data sources
 
 ## Project Structure
 
@@ -78,17 +83,21 @@ draftiq/
 │   │   ├── __init__.py
 │   │   └── v1/            # API version 1
 │   │       ├── __init__.py
-│   │       └── auth.py    # OAuth authentication endpoints
+│   │       ├── auth.py    # OAuth authentication endpoints
+│   │       └── yahoo.py   # Yahoo sync endpoints
 │   ├── models/            # SQLAlchemy models
 │   │   ├── __init__.py
 │   │   ├── base.py        # Base model class
-│   │   └── user.py        # User and OAuth token models
+│   │   ├── user.py        # User and OAuth token models
+│   │   └── fantasy.py     # Fantasy football models
 │   ├── schemas/           # Pydantic schemas
 │   │   ├── __init__.py
-│   │   └── auth.py        # Authentication schemas
+│   │   ├── auth.py        # Authentication schemas
+│   │   └── yahoo.py       # Yahoo API schemas
 │   ├── services/          # Business logic
 │   │   ├── __init__.py
-│   │   └── yahoo_oauth.py # Yahoo OAuth service
+│   │   ├── yahoo_oauth.py # Yahoo OAuth service
+│   │   └── yahoo_api.py   # Yahoo API client service
 │   ├── utils/             # Utility functions
 │   │   └── __init__.py
 │   └── tests/             # Test files
